@@ -26,8 +26,8 @@ public class EmployeeDaoJdbcImpl implements EmployeeDao{
 		
 		String query = "insert into employee values(?,?,?,?)";
 		try {
-		con=ConnectionUtil.getDbConnection();
-		smt= con.prepareStatement(query);
+		   con=ConnectionUtil.getDbConnection();
+		   smt= con.prepareStatement(query);
 		
 			smt.setInt(1, employee.getEmployeeId());
 			smt.setString(2, employee.getEmployeeName());
