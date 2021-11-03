@@ -29,7 +29,6 @@ public class EmployeeDaoJdbcImpl implements EmployeeDao{
 		   con=ConnectionUtil.getDbConnection();
 		   smt= con.prepareStatement(query);
 		
-		   
 			smt.setInt(1, employee.getEmployeeId());
 			smt.setString(2, employee.getEmployeeName());
 			smt.setString(3, dateString);
