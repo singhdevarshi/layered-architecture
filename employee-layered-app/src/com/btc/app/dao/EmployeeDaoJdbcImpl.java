@@ -10,6 +10,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.btc.app.exception.DuplicateDataException;
 import com.btc.app.model.Employee;
 
 public class EmployeeDaoJdbcImpl implements EmployeeDao{
@@ -19,24 +20,29 @@ public class EmployeeDaoJdbcImpl implements EmployeeDao{
 	private PreparedStatement smt;
 
 	@Override
-    public Employee addEmployee(Employee employee) throws SQLException {
+    public Employee addEmployee(Employee employee) {
 		
 		String dateString = employee.getDob().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 		
 		String query = "insert into employee values(?,?,?,?)";
-		
+		try {
 		con=ConnectionUtil.getDbConnection();
 		smt= con.prepareStatement(query);
 		
-		smt.setInt(1, employee.getEmployeeId());
-		smt.setString(2, employee.getEmployeeName());
-		smt.setString(3, dateString);
-		smt.setString(4, employee.getEmail());
-		
-		int insertedRowCount = smt.executeUpdate();
-		if(insertedRowCount>0) {
-			return employee;
+			smt.setInt(1, employee.getEmployeeId());
+			smt.setString(2, employee.getEmployeeName());
+			smt.setString(3, dateString);
+			smt.setString(4, employee.getEmail());
+			
+			int insertedRowCount = smt.executeUpdate();
+			if(insertedRowCount>0) {
+				return employee;
+			}
+		} catch (DuplicateDataException | SQLException e) {
+			// TODO: handle exception
+		   throw new DuplicateDataException("Employee Already Exists");
 		}
+		
 		return null;
 	}
 

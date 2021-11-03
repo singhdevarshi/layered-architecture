@@ -22,7 +22,7 @@ EmployeeDao dao=new EmployeeDaoImpl();
 	}
 
 	@Test
-	void testSearchEmployeeById() {
+	void testSearchEmployeeById() throws SQLException {
 		assert(dao.searchEmployeeById(1006)) != null;
 	}
 
@@ -32,7 +32,7 @@ EmployeeDao dao=new EmployeeDaoImpl();
 //	}
 
 	@Test
-	void testUpdateEmployee() {
+	void testUpdateEmployee() throws SQLException {
 		Employee emp=new Employee(1006,"Uttam Singh",LocalDate.parse("1994-02-10"),"uttamS@gmail.com");
 		assertEquals(emp, dao.updateEmployee(emp));
 	}
