@@ -119,7 +119,7 @@ public class EmployeeDaoJdbcImpl implements EmployeeDao{
 		
 		List<Employee> employee=new ArrayList<Employee>();
 		
-		if(rst.next()) {
+		while(rst.next()) {
 			Employee emp = new Employee();
 			emp.setEmployeeId(rst.getInt("empid"));
 			emp.setEmployeeName(rst.getString("ename"));
